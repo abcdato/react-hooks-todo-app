@@ -36,9 +36,7 @@
     "husky": "^8.0.0"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "yarn eslint --color",
-      "yarn prettier --write"
-    ]
+    "src/**/*.{html,css}": "yarn prettier --write",
+    "src/**/*.{js,jsx,ts,tsx}": "yarn eslint --color"
   }
 }
