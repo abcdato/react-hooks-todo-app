@@ -1,7 +1,8 @@
 {
   "name": "react-hooks-todo-app",
+  "homepage": "https://abcdato.github.io/react-hooks-todo-app/",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,8 +13,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "date-fns": "^2.30.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -29,11 +32,12 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "gh-pages": "^6.0.0",
+    "husky": "^8.0.0",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
+    "prop-types": "^15.8.1",
     "sass": "^1.66.1",
-    "vite": "^4.4.5",
-    "husky": "^8.0.0"
+    "vite": "^4.4.5"
   },
   "lint-staged": {
     "src/**/*.{html,css}": "yarn prettier --write",
