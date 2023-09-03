@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 
 function TasksFilter({ filter, onFilterChange }) {
   const buttons = [
-    { name: 'all', label: 'All' },
-    { name: 'active', label: 'Active' },
-    { name: 'completed', label: 'Completed' },
+    { status: 'all', label: 'All' },
+    { status: 'active', label: 'Active' },
+    { status: 'completed', label: 'Completed' },
   ];
 
-  const button = buttons.map(({ name, label }) => {
-    const selected = filter === name;
+  const button = buttons.map(({ status, label }) => {
+    const selected = filter === status;
     const className = selected ? 'selected' : null;
 
     return (
-      <li key={name}>
+      <li key={status}>
         <button
           className={className}
-          onClick={() => onFilterChange(name)}
+          onClick={() => onFilterChange(status)}
           type="button"
         >
           {label}
