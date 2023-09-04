@@ -10,7 +10,7 @@ function TasksFilter({ filter, onFilterChange }) {
 
   const button = buttons.map(({ status, label }) => {
     const selected = filter === status;
-    const className = selected ? 'selected' : null;
+    const className = selected ? 'selected' : '';
 
     return (
       <li key={status}>
