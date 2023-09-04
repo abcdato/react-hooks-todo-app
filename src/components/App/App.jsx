@@ -9,11 +9,11 @@ import '../../index.css';
 
 function App() {
   const [todoData, setTodoData] = useState(
-    JSON.parse(localStorage.getItem('todoData')) || [],
+    () => JSON.parse(localStorage.getItem('todoData')) || [],
   );
 
   const [filter, setFilter] = useState(
-    JSON.parse(localStorage.getItem('filter')) || 'all',
+    () => JSON.parse(localStorage.getItem('filter')) || 'all',
   );
 
   useEffect(() => {
