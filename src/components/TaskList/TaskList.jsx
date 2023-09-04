@@ -12,7 +12,7 @@ function TaskList({
 }) {
   const tasks = todos.map((item) => {
     const { id, ...itemProps } = item;
-    console.log(id);
+
     return (
       <Task
         key={id}
