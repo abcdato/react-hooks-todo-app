@@ -37,14 +37,6 @@ function App() {
       return el;
     });
 
-  const updateTime = (arr, id, minutes, seconds) =>
-    arr.map((el) => {
-      if (el.id === id) {
-        return { ...el, minutes, seconds };
-      }
-      return el;
-    });
-
   const handleDelete = (id) => {
     const filteredTodos = todoData.filter((todo) => todo.id !== id);
 
@@ -89,12 +81,6 @@ function App() {
     setTodoData(completedTasks);
   };
 
-  const saveTimeToLocalStorage = (id, minutes, seconds) => {
-    const uodatedTime = updateTime(todoData, id, minutes, seconds);
-
-    setTodoData(uodatedTime);
-  };
-
   const filterTasks = (todos) => {
     switch (filter) {
       case 'all':
@@ -124,7 +110,6 @@ function App() {
         handleEdit={handleEdit}
         onToggleDone={onToggleDone}
         onToggleEditing={onToggleEditing}
-        saveTimeToLocalStorage={saveTimeToLocalStorage}
       />
       <Footer
         itemsLeft={itemsLeft}
