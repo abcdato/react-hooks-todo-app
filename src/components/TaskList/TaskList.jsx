@@ -8,7 +8,6 @@ function TaskList({
   handleEdit,
   onToggleDone,
   onToggleEditing,
-  saveTimeToLocalStorage,
 }) {
   const tasks = todos.map((item) => {
     const { id, ...itemProps } = item;
@@ -22,7 +21,6 @@ function TaskList({
         handleEdit={handleEdit}
         onToggleDone={() => onToggleDone(id)}
         onToggleEditing={() => onToggleEditing(id)}
-        saveTimeToLocalStorage={saveTimeToLocalStorage}
       />
     );
   });
@@ -43,8 +41,7 @@ TaskList.defaultProps = {
 };
 
 TaskList.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+  todos: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   handleDelete: PropTypes.func,
   handleEdit: PropTypes.func,
   onToggleDone: PropTypes.func,
