@@ -2,21 +2,41 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
-import { DataContext } from '../App/App';
+import DataContext from '../Context/DataContext';
 
 function Task(props) {
-  const {
-    label,
-    handleDelete,
-    onToggleDone,
-    onToggleEditing,
-    done,
-    editing,
-    creationDate,
-  } = props;
+  const { label, done, editing, creationDate } = props;
 
   const [todo, setTodo] = useState(label);
   const { todoData, setTodoData } = useContext(DataContext);
+
+  const toggleProp = (arr, id, propName) =>
+    arr.map((el) => {
+      if (el.id === id) {
+        return { ...el, [propName]: !el[propName] };
+      }
+      return el;
+    });
+
+  const onToggleDone = () => {
+    const { id } = props;
+    const status = toggleProp(todoData, id, 'done');
+
+    setTodoData(status);
+  };
+
+  const onToggleEditing = () => {
+    const { id } = props;
+
+    setTodoData(toggleProp(todoData, id, 'editing'));
+  };
+
+  const handleDelete = () => {
+    const { id } = props;
+    const filteredTodos = todoData.filter((item) => item.id !== id);
+
+    setTodoData(filteredTodos);
+  };
 
   const handleEdit = (id, text) => {
     const newTodos = [...todoData].map((item) => {
@@ -115,8 +135,4 @@ Task.propTypes = {
   done: PropTypes.bool,
   editing: PropTypes.bool,
   creationDate: PropTypes.string,
-  // handleEdit: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired,
-  onToggleDone: PropTypes.func.isRequired,
-  onToggleEditing: PropTypes.func.isRequired,
 };

@@ -1,11 +1,10 @@
 /* eslint-disable import/no-cycle */
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { DataContext } from '../App/App';
+import DataContext from '../Context/DataContext';
 
 import TasksFilter from '../TasksFilter/TasksFilter';
 
-function Footer({ onFilterChange }) {
+function Footer() {
   const { itemsLeft, todoData, setTodoData } = useContext(DataContext);
 
   const clearCompleted = () => {
@@ -17,7 +16,7 @@ function Footer({ onFilterChange }) {
   return (
     <footer className="footer">
       <span className="todo-count">{itemsLeft} items left</span>
-      <TasksFilter onFilterChange={onFilterChange} />
+      <TasksFilter />
       <button
         className="clear-completed"
         onClick={clearCompleted}
@@ -28,18 +27,5 @@ function Footer({ onFilterChange }) {
     </footer>
   );
 }
-
-Footer.defaultProps = {
-  // itemsLeft: 3,
-  // filter: 'all',
-  onFilterChange: () => {},
-};
-
-Footer.propTypes = {
-  // itemsLeft: PropTypes.number,
-  // filter: PropTypes.string,
-  // clearCompleted: PropTypes.func.isRequired,
-  onFilterChange: PropTypes.func,
-};
 
 export default Footer;
