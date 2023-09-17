@@ -1,12 +1,16 @@
-import React from 'react';
+/* eslint-disable import/no-cycle */
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { DataContext } from '../App/App';
 
-function TasksFilter({ filter, onFilterChange }) {
+function TasksFilter({ onFilterChange }) {
   const buttons = [
     { status: 'all', label: 'All' },
     { status: 'active', label: 'Active' },
     { status: 'completed', label: 'Completed' },
   ];
+
+  const { filter } = useContext(DataContext);
 
   const button = buttons.map(({ status, label }) => {
     const selected = filter === status;
@@ -29,11 +33,11 @@ function TasksFilter({ filter, onFilterChange }) {
 }
 
 TasksFilter.defaultProps = {
-  filter: 'all',
+  // filter: 'all',
 };
 
 TasksFilter.propTypes = {
-  filter: PropTypes.string,
+  // filter: PropTypes.string,
   onFilterChange: PropTypes.func.isRequired,
 };
 

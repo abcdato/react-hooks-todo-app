@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+/* eslint-disable import/no-cycle */
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
+import { DataContext } from '../App/App';
 
 function Task(props) {
   const {
@@ -14,6 +16,19 @@ function Task(props) {
   } = props;
 
   const [todo, setTodo] = useState(label);
+  const { todoData, setTodoData } = useContext(DataContext);
+
+  const handleEdit = (id, text) => {
+    const newTodos = [...todoData].map((item) => {
+      if (item.id === id) {
+        const task = item;
+        task.label = text;
+      }
+      return todo;
+    });
+
+    setTodoData(newTodos);
+  };
 
   const handleChange = (e) => {
     const todoField = e.target.value;
@@ -23,7 +38,7 @@ function Task(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { id, handleEdit } = props;
+    const { id } = props;
 
     if (todo.trim() === '') {
       handleDelete();
@@ -100,7 +115,7 @@ Task.propTypes = {
   done: PropTypes.bool,
   editing: PropTypes.bool,
   creationDate: PropTypes.string,
-  handleEdit: PropTypes.func.isRequired,
+  // handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
   onToggleDone: PropTypes.func.isRequired,
   onToggleEditing: PropTypes.func.isRequired,

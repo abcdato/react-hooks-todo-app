@@ -1,13 +1,23 @@
-import React from 'react';
+/* eslint-disable import/no-cycle */
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { DataContext } from '../App/App';
 
 import TasksFilter from '../TasksFilter/TasksFilter';
 
-function Footer({ itemsLeft, clearCompleted, filter, onFilterChange }) {
+function Footer({ onFilterChange }) {
+  const { itemsLeft, todoData, setTodoData } = useContext(DataContext);
+
+  const clearCompleted = () => {
+    const completedTasks = todoData.filter((todo) => !todo.done);
+
+    setTodoData(completedTasks);
+  };
+
   return (
     <footer className="footer">
       <span className="todo-count">{itemsLeft} items left</span>
-      <TasksFilter filter={filter} onFilterChange={onFilterChange} />
+      <TasksFilter onFilterChange={onFilterChange} />
       <button
         className="clear-completed"
         onClick={clearCompleted}
@@ -20,15 +30,15 @@ function Footer({ itemsLeft, clearCompleted, filter, onFilterChange }) {
 }
 
 Footer.defaultProps = {
-  itemsLeft: 3,
-  filter: 'all',
+  // itemsLeft: 3,
+  // filter: 'all',
   onFilterChange: () => {},
 };
 
 Footer.propTypes = {
-  itemsLeft: PropTypes.number,
-  filter: PropTypes.string,
-  clearCompleted: PropTypes.func.isRequired,
+  // itemsLeft: PropTypes.number,
+  // filter: PropTypes.string,
+  // clearCompleted: PropTypes.func.isRequired,
   onFilterChange: PropTypes.func,
 };
 

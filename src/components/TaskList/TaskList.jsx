@@ -1,15 +1,18 @@
-import React from 'react';
+/* eslint-disable import/no-cycle */
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Task from '../Task/Task';
+import { DataContext } from '../App/App';
 
 function TaskList({
-  todos,
+  // todos,
   handleDelete,
   handleEdit,
   onToggleDone,
   onToggleEditing,
 }) {
-  const tasks = todos.map((item) => {
+  const { filteredTasks } = useContext(DataContext);
+  const tasks = filteredTasks.map((item) => {
     const { id, ...itemProps } = item;
 
     return (
@@ -41,7 +44,7 @@ TaskList.defaultProps = {
 };
 
 TaskList.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  // filteredTasks: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   handleDelete: PropTypes.func,
   handleEdit: PropTypes.func,
   onToggleDone: PropTypes.func,
