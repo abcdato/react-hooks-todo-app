@@ -6,24 +6,20 @@ function TasksFilter() {
   const { filter, setFilter } = useContext(DataContext);
 
   const buttons = [
-    { status: 'all', label: 'All' },
-    { status: 'active', label: 'Active' },
-    { status: 'completed', label: 'Completed' },
+    { btn: 'all', label: 'All' },
+    { btn: 'active', label: 'Active' },
+    { btn: 'completed', label: 'Completed' },
   ];
 
-  const onFilterChange = (filterStatus) => {
-    setFilter(filterStatus);
-  };
-
-  const button = buttons.map(({ status, label }) => {
-    const selected = filter === status;
+  const button = buttons.map(({ btn, label }) => {
+    const selected = filter === btn;
     const className = selected ? 'selected' : '';
 
     return (
-      <li key={status}>
+      <li key={btn}>
         <button
           className={className}
-          onClick={() => onFilterChange(status)}
+          onClick={() => setFilter(btn)}
           type="button"
         >
           {label}

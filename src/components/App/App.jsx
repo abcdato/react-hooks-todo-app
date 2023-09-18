@@ -35,16 +35,11 @@ function App() {
     }
   };
 
-  const itemsDone = todoData.filter((todo) => todo.done).length;
-  const itemsLeft = todoData.length - itemsDone;
-
   const filteredTasks = filterTasks(todoData, filter);
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value = {
     filteredTasks,
-    itemsDone,
-    itemsLeft,
     filter,
     setFilter,
     todoData,

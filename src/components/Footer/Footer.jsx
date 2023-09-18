@@ -5,7 +5,10 @@ import DataContext from '../Context/DataContext';
 import TasksFilter from '../TasksFilter/TasksFilter';
 
 function Footer() {
-  const { itemsLeft, todoData, setTodoData } = useContext(DataContext);
+  const { todoData, setTodoData } = useContext(DataContext);
+
+  const itemsDone = todoData.filter((todo) => todo.done).length;
+  const itemsLeft = todoData.length - itemsDone;
 
   const clearCompleted = () => {
     const completedTasks = todoData.filter((todo) => !todo.done);
