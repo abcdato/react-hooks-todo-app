@@ -21,12 +21,12 @@ function NewTaskForm() {
     setTodoData((prevData) => [...prevData, newTask]);
   };
 
-  const onChange = (e) => {
+  const handleChange = (e) => {
     const todoField = e.target.value;
     setTodo(todoField);
   };
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (todo.trim() === '') {
@@ -39,14 +39,14 @@ function NewTaskForm() {
   };
 
   return (
-    <form className="new-todo-form" onSubmit={onSubmit}>
+    <form className="new-todo-form" onSubmit={handleSubmit}>
       <input
         className="new-todo"
         placeholder="What needs to be done?"
         type="text"
         name="label"
         value={todo}
-        onChange={onChange}
+        onChange={handleChange}
       />
       <input className="visually-hidden" type="submit" value="Submit" />
     </form>

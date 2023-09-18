@@ -8,6 +8,7 @@ function Task(props) {
   const { label, done, editing, creationDate } = props;
 
   const [todo, setTodo] = useState(label);
+
   const { todoData, setTodoData } = useContext(DataContext);
 
   const toggleProp = (arr, id, propName) =>
@@ -69,7 +70,7 @@ function Task(props) {
     onToggleEditing(id);
   };
 
-  const timeCreated = formatDistanceToNow(new Date(creationDate), {
+  const time = formatDistanceToNow(new Date(creationDate), {
     includeSeconds: true,
   });
 
@@ -92,7 +93,7 @@ function Task(props) {
         />
         <label>
           <span className="title">{label}</span>
-          <span className="description">created {timeCreated} ago</span>
+          <span className="description">created {time} ago</span>
         </label>
         <button
           className="icon icon-edit"
