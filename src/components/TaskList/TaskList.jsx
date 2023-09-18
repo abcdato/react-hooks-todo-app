@@ -1,52 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable import/no-cycle */
+import React, { useContext } from 'react';
 import Task from '../Task/Task';
+import DataContext from '../Context/DataContext';
 
-function TaskList({
-  todos,
-  handleDelete,
-  handleEdit,
-  onToggleDone,
-  onToggleEditing,
-}) {
-  const tasks = todos.map((item) => {
+function TaskList() {
+  const { filteredTasks } = useContext(DataContext);
+  const tasks = filteredTasks.map((item) => {
     const { id, ...itemProps } = item;
 
-    return (
-      <Task
-        key={id}
-        id={id}
-        {...itemProps}
-        handleDelete={() => handleDelete(id)}
-        handleEdit={handleEdit}
-        onToggleDone={() => onToggleDone(id)}
-        onToggleEditing={() => onToggleEditing(id)}
-      />
-    );
+    return <Task key={id} id={id} {...itemProps} />;
   });
 
   return (
-    <section className="main">
+    <main className="main">
       <ul className="todo-list">{tasks}</ul>
-    </section>
+    </main>
   );
 }
-
-TaskList.defaultProps = {
-  handleDelete: () => {},
-  handleEdit: () => {},
-  onToggleDone: () => {},
-  onToggleEditing: () => {},
-  saveTimeToLocalStorage: () => {},
-};
-
-TaskList.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  handleDelete: PropTypes.func,
-  handleEdit: PropTypes.func,
-  onToggleDone: PropTypes.func,
-  onToggleEditing: PropTypes.func,
-  saveTimeToLocalStorage: PropTypes.func,
-};
 
 export default TaskList;

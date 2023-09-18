@@ -1,15 +1,32 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable import/no-cycle */
+import React, { useState, useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import DataContext from '../Context/DataContext';
 
-function NewTaskForm({ handleAdd }) {
+function NewTaskForm() {
+  const { setTodoData } = useContext(DataContext);
   const [todo, setTodo] = useState('');
 
-  const onChange = (e) => {
+  const createTask = (label) => ({
+    label,
+    done: false,
+    editing: false,
+    creationDate: String(new Date()),
+    id: uuidv4(),
+  });
+
+  const handleAdd = (label) => {
+    const newTask = createTask(label);
+
+    setTodoData((prevData) => [...prevData, newTask]);
+  };
+
+  const handleChange = (e) => {
     const todoField = e.target.value;
     setTodo(todoField);
   };
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (todo.trim() === '') {
@@ -22,14 +39,14 @@ function NewTaskForm({ handleAdd }) {
   };
 
   return (
-    <form className="new-todo-form" onSubmit={onSubmit}>
+    <form className="new-todo-form" onSubmit={handleSubmit}>
       <input
         className="new-todo"
         placeholder="What needs to be done?"
         type="text"
         name="label"
         value={todo}
-        onChange={onChange}
+        onChange={handleChange}
       />
       <input className="visually-hidden" type="submit" value="Submit" />
     </form>
@@ -37,7 +54,3 @@ function NewTaskForm({ handleAdd }) {
 }
 
 export default NewTaskForm;
-
-NewTaskForm.propTypes = {
-  handleAdd: PropTypes.func.isRequired,
-};

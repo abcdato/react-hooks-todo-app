@@ -1,19 +1,53 @@
-import React, { useState } from 'react';
+/* eslint-disable import/no-cycle */
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
+import DataContext from '../Context/DataContext';
 
 function Task(props) {
-  const {
-    label,
-    handleDelete,
-    onToggleDone,
-    onToggleEditing,
-    done,
-    editing,
-    creationDate,
-  } = props;
-
+  const { todoData, setTodoData } = useContext(DataContext);
+  const { label, done, editing, creationDate } = props;
   const [todo, setTodo] = useState(label);
+
+  const toggleProp = (arr, id, propName) =>
+    arr.map((el) => {
+      if (el.id === id) {
+        return { ...el, [propName]: !el[propName] };
+      }
+      return el;
+    });
+
+  const onToggleDone = () => {
+    const { id } = props;
+    const status = toggleProp(todoData, id, 'done');
+
+    setTodoData(status);
+  };
+
+  const onToggleEditing = () => {
+    const { id } = props;
+
+    setTodoData(toggleProp(todoData, id, 'editing'));
+  };
+
+  const handleDelete = () => {
+    const { id } = props;
+    const filteredTodos = todoData.filter((item) => item.id !== id);
+
+    setTodoData(filteredTodos);
+  };
+
+  const handleEdit = (id, text) => {
+    const newTodos = [...todoData].map((item) => {
+      if (item.id === id) {
+        const task = item;
+        task.label = text;
+      }
+      return todo;
+    });
+
+    setTodoData(newTodos);
+  };
 
   const handleChange = (e) => {
     const todoField = e.target.value;
@@ -23,7 +57,7 @@ function Task(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { id, handleEdit } = props;
+    const { id } = props;
 
     if (todo.trim() === '') {
       handleDelete();
@@ -34,7 +68,7 @@ function Task(props) {
     onToggleEditing(id);
   };
 
-  const timeCreated = formatDistanceToNow(new Date(creationDate), {
+  const time = formatDistanceToNow(new Date(creationDate), {
     includeSeconds: true,
   });
 
@@ -57,7 +91,7 @@ function Task(props) {
         />
         <label>
           <span className="title">{label}</span>
-          <span className="description">created {timeCreated} ago</span>
+          <span className="description">created {time} ago</span>
         </label>
         <button
           className="icon icon-edit"
@@ -100,8 +134,4 @@ Task.propTypes = {
   done: PropTypes.bool,
   editing: PropTypes.bool,
   creationDate: PropTypes.string,
-  handleEdit: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired,
-  onToggleDone: PropTypes.func.isRequired,
-  onToggleEditing: PropTypes.func.isRequired,
 };

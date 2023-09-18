@@ -1,22 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable import/no-cycle */
+import React, { useContext } from 'react';
+import DataContext from '../Context/DataContext';
 
-function TasksFilter({ filter, onFilterChange }) {
+function TasksFilter() {
+  const { filter, setFilter } = useContext(DataContext);
+
   const buttons = [
-    { status: 'all', label: 'All' },
-    { status: 'active', label: 'Active' },
-    { status: 'completed', label: 'Completed' },
+    { btn: 'all', label: 'All' },
+    { btn: 'active', label: 'Active' },
+    { btn: 'completed', label: 'Completed' },
   ];
 
-  const button = buttons.map(({ status, label }) => {
-    const selected = filter === status;
+  const button = buttons.map(({ btn, label }) => {
+    const selected = filter === btn;
     const className = selected ? 'selected' : '';
 
     return (
-      <li key={status}>
+      <li key={btn}>
         <button
           className={className}
-          onClick={() => onFilterChange(status)}
+          onClick={() => setFilter(btn)}
           type="button"
         >
           {label}
@@ -27,14 +30,5 @@ function TasksFilter({ filter, onFilterChange }) {
 
   return <ul className="filters">{button}</ul>;
 }
-
-TasksFilter.defaultProps = {
-  filter: 'all',
-};
-
-TasksFilter.propTypes = {
-  filter: PropTypes.string,
-  onFilterChange: PropTypes.func.isRequired,
-};
 
 export default TasksFilter;
