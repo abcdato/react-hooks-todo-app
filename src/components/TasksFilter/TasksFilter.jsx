@@ -3,13 +3,13 @@ import React, { useContext } from 'react';
 import DataContext from '../Context/DataContext';
 
 function TasksFilter() {
+  const { filter, setFilter } = useContext(DataContext);
+
   const buttons = [
     { status: 'all', label: 'All' },
     { status: 'active', label: 'Active' },
     { status: 'completed', label: 'Completed' },
   ];
-
-  const { filter, setFilter } = useContext(DataContext);
 
   const onFilterChange = (filterStatus) => {
     setFilter(filterStatus);

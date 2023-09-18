@@ -5,11 +5,9 @@ import { formatDistanceToNow } from 'date-fns';
 import DataContext from '../Context/DataContext';
 
 function Task(props) {
-  const { label, done, editing, creationDate } = props;
-
-  const [todo, setTodo] = useState(label);
-
   const { todoData, setTodoData } = useContext(DataContext);
+  const { label, done, editing, creationDate } = props;
+  const [todo, setTodo] = useState(label);
 
   const toggleProp = (arr, id, propName) =>
     arr.map((el) => {
